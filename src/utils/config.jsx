@@ -14,42 +14,123 @@ export const TRANSPORTS = [
   { id: "car_by_market_segment", label: "Car (by market segment)", icon: Car },
   { id: "motorbike", label: "Motorbike", icon: Bike },
   { id: "taxi", label: "Taxi", icon: CarTaxiFront },
-  { id: "bus", label: "Bus", icon: Bus },
-  { id: "rail", label: "Rail", icon: TrainFront },
-  { id: "ferry", label: "Ferry", icon: Ship },
-];
-
-export const ACTIVITIES = [
-  { key: "flight", label: "Flight" },
-  { key: "car_by_size", label: "Car (by size)" },
-  { key: "car_by_market_segment", label: "Car (by market segment)" },
-  { key: "motorbike", label: "Motorbike" },
-  { key: "taxi", label: "Taxi" },
-  { key: "bus", label: "Bus" },
-  { key: "rail", label: "Rail" },
-  { key: "ferry", label: "Ferry" },
+  // { id: "bus", label: "Bus", icon: Bus },
+  // { id: "rail", label: "Rail", icon: TrainFront },
+  // { id: "ferry", label: "Ferry", icon: Ship },
 ];
 
 export const CALCULATOR_SCHEMA = {
   flight: {
     inputs: ["origin", "destination", "cabin_class", "trip_type"],
-    cabinClasses: ["economy", "premiumEconomy", "business", "first"],
+    cabinClasses: [
+      {
+        label: "Average",
+        key: "average",
+      },
+      {
+        label: "Economy",
+        key: "economy",
+      },
+      {
+        label: "Premium Economy",
+        key: "premiumEconomy",
+      },
+      {
+        label: "Business",
+        key: "business",
+      },
+      {
+        label: "First Class",
+        key: "first",
+      },
+    ],
     tripTypes: ["one_way", "round_trip"],
   },
 
   car_by_size: {
     inputs: ["distance", "size"],
-    sizes: ["small", "medium", "large", "executive", "luxury"],
+    sizes: [
+      {
+        label: "Small",
+        key: "small",
+      },
+      {
+        label: "Medium",
+        key: "medium",
+      },
+      {
+        label: "Large",
+        key: "large",
+      },
+      {
+        label: "Average",
+        key: "average",
+      },
+    ],
   },
 
   car_by_market_segment: {
     inputs: ["distance", "segment"],
-    segments: ["small", "medium", "large", "executive", "luxury"],
+    segments: [
+      {
+        label: "Mini",
+        key: "mini",
+      },
+      {
+        label: "Supermini",
+        key: "supermini",
+      },
+      {
+        label: "Lower Medium",
+        key: "lowerMedium",
+      },
+      {
+        label: "Upper Medium",
+        key: "upperMedium",
+      },
+      {
+        label: "Executive",
+        key: "executive",
+      },
+      {
+        label: "Luxury",
+        key: "luxury",
+      },
+      {
+        label: "Sports",
+        key: "sports",
+      },
+      {
+        label: "Dual Purpose 4x4",
+        key: "dualPurpose4x4",
+      },
+      {
+        label: "MPV",
+        key: "mpv",
+      },
+    ],
   },
 
   motorbike: {
     inputs: ["distance", "size"],
-    sizes: ["small", "medium", "large", "average"],
+    sizes: [
+      {
+        label: "Small",
+        key: "small",
+      },
+      {
+        label: "Medium",
+        key: "medium",
+      },
+      {
+        label: "Large",
+        key: "large",
+      },
+      {
+        label: "Average",
+        key: "average",
+      },
+    ],
   },
 
   taxi: {
@@ -57,18 +138,59 @@ export const CALCULATOR_SCHEMA = {
     types: ["regular", "premium"],
   },
 
-  bus: {
-    inputs: ["distance", "type"],
-    types: ["local", "coach"],
+  // bus: {
+  //   inputs: ["distance", "type"],
+  //   types: ["local", "coach"],
+  // },
+
+  // rail: {
+  //   inputs: ["distance", "type"],
+  //   types: ["national", "metro"],
+  // },
+};
+
+export const FLIGHT_RULES = {
+  haul: {
+    short: { max: 1500 }, // km
+    long: { min: 1500 },
   },
 
-  rail: {
-    inputs: ["distance", "type"],
-    types: ["national", "metro"],
-  },
+  ukCheck: (origin, destination) => origin === "UK" || destination === "UK",
 
-  ferry: {
-    inputs: ["distance", "type"],
-    types: ["national", "metro"],
+  cabinClasses: {
+    short_haul: ["average", "economy", "business"],
+    long_haul: ["average", "economy", "premiumEconomy", "business", "first"],
+    non_uk: ["average", "economy", "premiumEconomy", "business", "first"],
   },
 };
+
+export function resolveFlightScopeId({
+  origin_country,
+  destination_country,
+  distance_km,
+  cabin_class,
+}) {
+  const isUK = FLIGHT_RULES.ukCheck(origin_country, destination_country);
+
+  // NON-UK flights
+  if (!isUK) {
+    if (!FLIGHT_RULES.cabinClasses.non_uk.includes(cabin_class)) {
+      throw new Error("Invalid cabin class for non-UK flight");
+    }
+    return `non_uk_${cabin_class}`;
+  }
+
+  // UK flights
+  if (distance_km < FLIGHT_RULES.haul.short.max) {
+    if (!FLIGHT_RULES.cabinClasses.short_haul.includes(cabin_class)) {
+      throw new Error("Invalid cabin class for short haul");
+    }
+    return `uk_shortHaul_${cabin_class}`;
+  }
+
+  if (!FLIGHT_RULES.cabinClasses.long_haul.includes(cabin_class)) {
+    throw new Error("Invalid cabin class for long haul");
+  }
+
+  return `uk_longHaul_${cabin_class}`;
+}
