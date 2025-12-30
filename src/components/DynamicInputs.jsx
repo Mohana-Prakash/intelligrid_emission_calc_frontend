@@ -10,7 +10,7 @@ export default function DynamicInputs({ schema, values, onChange }) {
         <AirportAutocomplete
           placeholder="Origin (City / Airport / IATA)"
           value={values.origin || ""}
-          onSelect={(airport) => onChange("origin", airport.iata)}
+          onSelect={(airport) => onChange("origin", airport)}
         />
       )}
 
@@ -19,7 +19,7 @@ export default function DynamicInputs({ schema, values, onChange }) {
         <AirportAutocomplete
           placeholder="Destination (City / Airport / IATA)"
           value={values.destination || ""}
-          onSelect={(airport) => onChange("destination", airport.iata)}
+          onSelect={(airport) => onChange("destination", airport)}
         />
       )}
 

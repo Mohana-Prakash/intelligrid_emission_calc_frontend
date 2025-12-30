@@ -1,15 +1,12 @@
 import { resolveFlightScopeId } from "./config";
 
 export function resolveScopeId(mode, values) {
-  console.log(values);
-
   switch (mode) {
     case "flight":
       return resolveFlightScopeId({
-        origin_country: values.origin,
-        destination_country: values.destination,
-        distance_km: Number(values.distance),
-        cabin_class: values.cabin_class,
+        origin_detail: values.origin,
+        destination_detail: values.destination,
+        cabin_class: values.cabinClass,
       });
 
     case "car_by_size":

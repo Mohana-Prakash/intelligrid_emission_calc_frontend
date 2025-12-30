@@ -11,14 +11,15 @@ export default function AirportAutocomplete({ value, onSelect, placeholder }) {
 
     const q = debouncedQuery.toLowerCase();
 
-    return airports.filter(
-      (a) =>
-        (a.iata?.toLowerCase() || "").includes(q) ||
-        (a.name?.toLowerCase() || "").includes(q) ||
-        (a.city?.toLowerCase() || "").includes(q) ||
-        (a.country?.toLowerCase() || "").includes(q)
-    );
-    // .slice(0, 8);
+    return airports
+      .filter(
+        (a) =>
+          (a.iata?.toLowerCase() || "").includes(q) ||
+          (a.name?.toLowerCase() || "").includes(q) ||
+          (a.city?.toLowerCase() || "").includes(q) ||
+          (a.country?.toLowerCase() || "").includes(q)
+      )
+      .slice(0, 8);
   }, [debouncedQuery]);
 
   return (

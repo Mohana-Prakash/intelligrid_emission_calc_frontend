@@ -1,4 +1,4 @@
-export function calculateFlightDistance(lat1, lon1, lat2, lon2) {
+export function CalculateFlightDistance(lat1, lon1, lat2, lon2) {
   const R = 6371;
 
   const toRad = (degree) => (degree * Math.PI) / 180;

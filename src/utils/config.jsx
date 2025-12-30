@@ -7,6 +7,7 @@ import {
   Ship,
   CarTaxiFront,
 } from "lucide-react";
+import { CalculateFlightDistance } from "../components/flightComp/FlightDistanceCalc";
 
 export const TRANSPORTS = [
   { id: "flight", label: "Flight", icon: Plane },
@@ -155,7 +156,8 @@ export const FLIGHT_RULES = {
     long: { min: 1500 },
   },
 
-  ukCheck: (origin, destination) => origin === "UK" || destination === "UK",
+  ukCheck: (origin, destination) =>
+    origin === "Great Britain" || destination === "Great Britain",
 
   cabinClasses: {
     short_haul: ["average", "economy", "business"],
@@ -165,13 +167,29 @@ export const FLIGHT_RULES = {
 };
 
 export function resolveFlightScopeId({
-  origin_country,
-  destination_country,
-  distance_km,
+  origin_detail,
+  destination_detail,
   cabin_class,
 }) {
-  const isUK = FLIGHT_RULES.ukCheck(origin_country, destination_country);
+  const isUK = FLIGHT_RULES.ukCheck(
+    origin_detail.country,
+    destination_detail.country
+  );
 
+  const distance_km = CalculateFlightDistance(
+    origin_detail.lat,
+    origin_detail.lon,
+    destination_detail.lat,
+    destination_detail.lon
+  );
+
+  // console.log(
+  //   origin_detail,
+  //   destination_detail,
+  //   cabin_class,
+  //   distance_km,
+  //   isUK
+  // );
   // NON-UK flights
   if (!isUK) {
     if (!FLIGHT_RULES.cabinClasses.non_uk.includes(cabin_class)) {
@@ -181,7 +199,7 @@ export function resolveFlightScopeId({
   }
 
   // UK flights
-  if (distance_km < FLIGHT_RULES.haul.short.max) {
+  if (isUK && distance_km < FLIGHT_RULES.haul.short.max) {
     if (!FLIGHT_RULES.cabinClasses.short_haul.includes(cabin_class)) {
       throw new Error("Invalid cabin class for short haul");
     }

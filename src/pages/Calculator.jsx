@@ -6,6 +6,7 @@ import { CALCULATOR_SCHEMA } from "../utils/config";
 import { resolveScopeId } from "../utils/scopeIdResolver";
 import { calculateEmission } from "../api/emissionApi";
 import ResultCard from "../components/ResultCard";
+import { CalculateFlightDistance } from "../components/flightComp/FlightDistanceCalc";
 
 export default function Calculator() {
   const navigate = useNavigate();
@@ -21,15 +22,25 @@ export default function Calculator() {
   };
 
   const handleCalculate = async () => {
-    if (Number(values.distance) <= 0) {
-      alert("Please enter a valid distance greater than 0.");
-      return;
-    }
-
     setLoading(true);
+
     try {
+      const distance =
+        mode === "flight"
+          ? CalculateFlightDistance(
+              values.origin.lat,
+              values.origin.lon,
+              values.destination.lat,
+              values.destination.lon
+            )
+          : Number(values.distance);
+
+      if (!distance || distance <= 0) {
+        alert("Please enter a valid distance greater than 0.");
+        return;
+      }
+
       const scope_id = resolveScopeId(mode, values);
-      const distance = Number(values.distance || 0);
       const res = await calculateEmission({ scope_id, distance });
       setResult(res.data);
     } finally {
