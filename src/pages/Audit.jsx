@@ -115,12 +115,7 @@ export default function Audit() {
               className="bg-white border rounded-xl shadow-sm hover:shadow-md transition p-5 flex flex-col"
             >
               {/* Card Header */}
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <p className="text-xs text-gray-500">Scope ID</p>
-                  <p className="font-semibold text-gray-900">{row.scope_id}</p>
-                </div>
-
+              <div className="mb-4">
                 <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
                   {activity.toUpperCase()}
                 </span>
@@ -129,14 +124,19 @@ export default function Audit() {
               {/* Main Content */}
               <div className="space-y-3 mb-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Unit</span>
-                  <span className="font-medium">{row.unit}</span>
+                  <span className="text-gray-500">Scope ID</span>
+                  <span className="font-medium">{row.scope_id}</span>
                 </div>
-
                 <div className="flex justify-between items-center">
                   <span className="text-gray-500 text-sm">Emission Factor</span>
                   <span className="text-xl font-bold text-green-600">
-                    {row.value}
+                    {row.emission_factor_value}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-500">Unit</span>
+                  <span className="font-medium">
+                    {row.emission_unit}/{row.distance_unit}
                   </span>
                 </div>
               </div>

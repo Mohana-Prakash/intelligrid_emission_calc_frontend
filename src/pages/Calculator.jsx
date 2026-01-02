@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TransportSelector from "../components/TransportSelector";
 import DynamicInputs from "../components/DynamicInputs";
-import { CALCULATOR_SCHEMA } from "../utils/config";
+import { CALCULATOR_SCHEMA, emission_obj } from "../utils/config";
 import { resolveScopeId } from "../utils/scopeIdResolver";
 import { calculateEmission } from "../api/emissionApi";
 import ResultCard from "../components/ResultCard";
@@ -11,7 +11,7 @@ import { CalculateFlightDistance } from "../components/flightComp/FlightDistance
 export default function Calculator() {
   const navigate = useNavigate();
   const [mode, setMode] = useState("flight");
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState(emission_obj);
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -41,7 +41,12 @@ export default function Calculator() {
       }
 
       const scope_id = resolveScopeId(mode, values);
-      const res = await calculateEmission({ scope_id, distance });
+      const res = await calculateEmission({
+        scope_id,
+        distance,
+        trip_type: values.trip_type,
+        passengers: Number(values.passengers),
+      });
       setResult(res.data);
     } finally {
       setLoading(false);
@@ -70,44 +75,44 @@ export default function Calculator() {
       </div>
 
       {/* Main Layout */}
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left: Calculator Card */}
-          <div className="lg:col-span-2 bg-white border rounded-xl shadow-sm p-6">
-            {/* Step 1 */}
-            <div className="mb-6">
-              <h2 className="text-lg font-semibold mb-2">
-                1. Select Transport Mode
-              </h2>
-              <TransportSelector selected={mode} onSelect={setMode} />
-            </div>
+      <div className="max-w-8xl mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* 1️⃣ Transport Selector */}
+          <div className="lg:col-span-1.5 bg-white border rounded-xl shadow-sm p-6">
+            <h2 className="text-lg font-semibold mb-4">
+              1. Select Transport Mode
+            </h2>
 
-            {/* Step 2 */}
-            <div className="mb-6">
-              <h2 className="text-lg font-semibold mb-2">
-                2. Enter Journey Details
-              </h2>
-              <DynamicInputs
-                schema={schema}
-                values={values}
-                onChange={updateValue}
-              />
-            </div>
+            <TransportSelector selected={mode} onSelect={setMode} />
+          </div>
+
+          {/* 2️⃣ Dynamic Inputs */}
+          <div className="lg:col-span-2 bg-gray-50 border rounded-xl shadow-sm p-6">
+            <h2 className="text-lg font-semibold mb-4">
+              2. Enter Journey Details
+            </h2>
+
+            <DynamicInputs
+              schema={schema}
+              values={values}
+              onChange={updateValue}
+            />
 
             {/* Action */}
             <button
               onClick={handleCalculate}
               disabled={!mode || loading}
-              className="w-full bg-green-600 text-white py-3 rounded-lg text-sm font-medium hover:bg-green-700 transition disabled:opacity-60"
+              className="mt-6 w-full bg-green-600 text-white py-3 rounded-lg text-sm font-medium
+                   hover:bg-green-700 transition disabled:opacity-60"
             >
               {loading ? "Calculating..." : "Calculate Emissions"}
             </button>
           </div>
 
-          {/* Right: Result */}
-          <div className="bg-gray-50 border rounded-xl p-6">
+          {/* 3️⃣ Result */}
+          <div className="lg:col-span-1 border rounded-xl p-6">
             {!result && (
-              <div className="text-center text-gray-500 text-sm mt-10">
+              <div className="h-full flex items-center justify-center text-center text-gray-500 text-sm">
                 Your emission result will appear here after calculation.
               </div>
             )}

@@ -2,7 +2,12 @@ import { useState, useMemo } from "react";
 import airports from "./airports.json";
 import { useDebounce } from "./useDebounce";
 
-export default function AirportAutocomplete({ value, onSelect, placeholder }) {
+export default function AirportAutocomplete({
+  value,
+  onSelect,
+  placeholder,
+  label,
+}) {
   const [query, setQuery] = useState(value || "");
   const debouncedQuery = useDebounce(query, 300);
 
@@ -24,6 +29,7 @@ export default function AirportAutocomplete({ value, onSelect, placeholder }) {
 
   return (
     <div className="relative">
+      {/* <label className="mb-2 text-sm text-gray-500">{label}</label> */}
       <input
         className="w-full border p-2 rounded"
         placeholder={placeholder}

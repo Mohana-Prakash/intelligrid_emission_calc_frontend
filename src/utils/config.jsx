@@ -22,11 +22,36 @@ export const TRANSPORTS = [
 
 export const CALCULATOR_SCHEMA = {
   flight: {
-    inputs: ["origin", "destination", "cabin_class", "trip_type"],
+    inputs: [
+      {
+        label: "Origin",
+        key: "origin",
+      },
+      {
+        label: "Destination",
+        key: "destination",
+      },
+      {
+        label: "Cabin Class",
+        key: "cabin_class",
+      },
+      {
+        label: "Passengers",
+        key: "passengers",
+      },
+      {
+        label: "Trip Type",
+        key: "trip_type",
+      },
+    ],
     cabinClasses: [
       {
         label: "Average",
         key: "average",
+      },
+      {
+        label: "Business",
+        key: "business",
       },
       {
         label: "Economy",
@@ -37,10 +62,6 @@ export const CALCULATOR_SCHEMA = {
         key: "premiumEconomy",
       },
       {
-        label: "Business",
-        key: "business",
-      },
-      {
         label: "First Class",
         key: "first",
       },
@@ -49,7 +70,24 @@ export const CALCULATOR_SCHEMA = {
   },
 
   car_by_size: {
-    inputs: ["distance", "size"],
+    inputs: [
+      {
+        label: "Distance",
+        key: "distance",
+      },
+      {
+        label: "Car Size",
+        key: "size",
+      },
+      {
+        label: "Car Fuel Type",
+        key: "fuel_type",
+      },
+      {
+        label: "Trip Type",
+        key: "trip_type",
+      },
+    ],
     sizes: [
       {
         label: "Small",
@@ -68,10 +106,58 @@ export const CALCULATOR_SCHEMA = {
         key: "average",
       },
     ],
+    fuelTypes: [
+      {
+        label: "Petrol",
+        key: "petrol",
+      },
+      {
+        label: "Diesel",
+        key: "diesel",
+      },
+      {
+        label: "Hybrid",
+        key: "hybrid",
+      },
+      {
+        label: "CNG",
+        key: "cng",
+      },
+      {
+        label: "LPG",
+        key: "lpg",
+      },
+      {
+        label: "Plug-in Hybrid Electric Vechicle (PHEV)",
+        key: "plug_in_hybrid",
+      },
+      {
+        label: "Battery Electric Vechicle (BEV)",
+        key: "battery_electric",
+      },
+    ],
+    tripTypes: ["one_way", "round_trip"],
   },
 
   car_by_market_segment: {
-    inputs: ["distance", "segment"],
+    inputs: [
+      {
+        label: "Distance",
+        key: "distance",
+      },
+      {
+        label: "Car Segment",
+        key: "segment",
+      },
+      {
+        label: "Car Fuel Type",
+        key: "fuel_type",
+      },
+      {
+        label: "Trip Type",
+        key: "trip_type",
+      },
+    ],
     segments: [
       {
         label: "Mini",
@@ -83,11 +169,11 @@ export const CALCULATOR_SCHEMA = {
       },
       {
         label: "Lower Medium",
-        key: "lowerMedium",
+        key: "lower_medium",
       },
       {
         label: "Upper Medium",
-        key: "upperMedium",
+        key: "upper_medium",
       },
       {
         label: "Executive",
@@ -103,17 +189,49 @@ export const CALCULATOR_SCHEMA = {
       },
       {
         label: "Dual Purpose 4x4",
-        key: "dualPurpose4x4",
+        key: "dual_purpose_4x4",
       },
       {
         label: "MPV",
         key: "mpv",
       },
     ],
+    fuelTypes: [
+      {
+        label: "Petrol",
+        key: "petrol",
+      },
+      {
+        label: "Diesel",
+        key: "diesel",
+      },
+      {
+        label: "Plug-in Hybrid Electric Vechicle (PHEV)",
+        key: "plug_in_hybrid",
+      },
+      {
+        label: "Battery Electric Vechicle (BEV)",
+        key: "battery_electric",
+      },
+    ],
+    tripTypes: ["one_way", "round_trip"],
   },
 
   motorbike: {
-    inputs: ["distance", "size"],
+    inputs: [
+      {
+        label: "Distance",
+        key: "distance",
+      },
+      {
+        label: "Car Size",
+        key: "size",
+      },
+      {
+        label: "Trip Type",
+        key: "trip_type",
+      },
+    ],
     sizes: [
       {
         label: "Small",
@@ -132,11 +250,30 @@ export const CALCULATOR_SCHEMA = {
         key: "average",
       },
     ],
+    tripTypes: ["one_way", "round_trip"],
   },
 
   taxi: {
-    inputs: ["distance", "type"],
-    types: ["regular", "premium"],
+    inputs: [
+      {
+        label: "Distance",
+        key: "distance",
+      },
+      {
+        label: "Taxi Type",
+        key: "type",
+      },
+    ],
+    types: [
+      {
+        label: "Regular Taxi",
+        key: "regular",
+      },
+      {
+        label: "Black Cab",
+        key: "black_cab",
+      },
+    ],
   },
 
   // bus: {
@@ -195,7 +332,7 @@ export function resolveFlightScopeId({
     if (!FLIGHT_RULES.cabinClasses.non_uk.includes(cabin_class)) {
       throw new Error("Invalid cabin class for non-UK flight");
     }
-    return `non_uk_${cabin_class}`;
+    return `flight_non_uk_${cabin_class}`;
   }
 
   // UK flights
@@ -212,3 +349,22 @@ export function resolveFlightScopeId({
 
   return `uk_longHaul_${cabin_class}`;
 }
+
+export const emission_obj = {
+  scope_id: "",
+  activity: "",
+  category: "",
+  size: "",
+  segment: "",
+  fuel: "",
+  haul: "",
+  class: "",
+  type: "",
+  distance_unit: "km",
+  emission_factor_value: 0,
+  emission_unit: "",
+  scope: "",
+  source: "",
+  year: "",
+  version: "",
+};
