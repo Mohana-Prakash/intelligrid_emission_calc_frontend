@@ -136,7 +136,7 @@ export default function Audit() {
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">Unit</span>
                   <span className="font-medium">
-                    {row.emission_unit}/{row.distance_unit}
+                    {row.emission_unit}/{row.factor_unit}
                   </span>
                 </div>
               </div>

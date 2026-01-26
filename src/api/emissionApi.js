@@ -8,6 +8,9 @@ const api = axios.create({
 export const calculateEmission = (payload) =>
   api.post(`/calculate/emission`, payload);
 
+export const fetchCalculationHistory = (payload) =>
+  api.get(`/calculate/history?user_id=${payload.user_id}`);
+
 export const fetchEmissionFactors = (activity) =>
   api.get(`/emission-factors`, {
     params: { activity },

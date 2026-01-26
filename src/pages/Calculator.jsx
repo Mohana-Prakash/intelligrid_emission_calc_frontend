@@ -4,7 +4,7 @@ import TransportSelector from "../components/TransportSelector";
 import DynamicInputs from "../components/DynamicInputs";
 import { CALCULATOR_SCHEMA, emission_obj } from "../utils/config";
 import { resolveScopeId } from "../utils/scopeIdResolver";
-import { calculateEmission } from "../api/emissionApi";
+import { calculateEmission, fetchCalculationHistory } from "../api/emissionApi";
 import ResultCard from "../components/ResultCard";
 import { CalculateFlightDistance } from "../components/flightComp/FlightDistanceCalc";
 
@@ -31,7 +31,7 @@ export default function Calculator() {
               values.origin.lat,
               values.origin.lon,
               values.destination.lat,
-              values.destination.lon
+              values.destination.lon,
             )
           : Number(values.distance);
 
@@ -42,12 +42,19 @@ export default function Calculator() {
 
       const scope_id = resolveScopeId(mode, values);
       const res = await calculateEmission({
+        ...(mode === "flight" && {
+          origin: `${values.origin.name}, ${values.origin.city}`,
+          destination: `${values.destination.name}, ${values.destination.city}`,
+        }),
         scope_id,
         distance,
         trip_type: values.trip_type,
-        passengers: Number(values.passengers),
+        ...(mode === "flight" && { passengers: Number(values.passengers) }),
+        calculator_type: "DEFRA",
+        leg_type: "single_leg",
+        user_id: "USER_001",
       });
-      setResult(res.data);
+      setResult(res.data.response);
     } finally {
       setLoading(false);
     }

@@ -1,8 +1,6 @@
 import { resolveFlightScopeId } from "./config";
 
 export function resolveScopeId(mode, values) {
-  console.log(values);
-
   switch (mode) {
     case "flight":
       return resolveFlightScopeId({

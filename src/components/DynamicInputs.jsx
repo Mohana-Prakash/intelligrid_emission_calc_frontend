@@ -1,7 +1,6 @@
 import AirportAutocomplete from "./flightComp/AirportAutocomplete";
 
 const SelectInput = ({ label, value, options, onChange }) => {
-  console.log(label, options);
   return (
     <select
       className="w-full border p-2 rounded"
