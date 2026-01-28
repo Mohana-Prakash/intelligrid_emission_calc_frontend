@@ -7,6 +7,7 @@ import { resolveScopeId } from "../utils/scopeIdResolver";
 import { calculateEmission, fetchCalculationHistory } from "../api/emissionApi";
 import ResultCard from "../components/ResultCard";
 import { CalculateFlightDistance } from "../components/flightComp/FlightDistanceCalc";
+import ActivitySelector from "./ActivitySelector";
 
 export default function Calculator() {
   const navigate = useNavigate();
@@ -73,12 +74,20 @@ export default function Calculator() {
           Carbon Footprint Measurement Tool
         </h1>
 
-        <button
-          onClick={() => navigate("/audit")}
-          className="px-4 py-2 bg-gray-900 text-white rounded-lg text-sm hover:bg-gray-700 transition"
-        >
-          Go to Audit
-        </button>
+        <div>
+          <button
+            onClick={() => navigate("/audit")}
+            className="px-4 py-2 bg-gray-900 text-white rounded-lg text-sm hover:bg-gray-700 transition"
+          >
+            Go to Audit
+          </button>
+          <button
+            onClick={() => navigate("/activity")}
+            className="ml-2 px-4 py-2 bg-gray-900 text-white rounded-lg text-sm hover:bg-gray-700 transition"
+          >
+            Activity
+          </button>
+        </div>
       </div>
 
       {/* Main Layout */}
@@ -144,6 +153,7 @@ export default function Calculator() {
           </div>
         </div>
       </div>
+      <ActivitySelector />
     </>
   );
 }
