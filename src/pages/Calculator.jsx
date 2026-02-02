@@ -7,7 +7,6 @@ import { resolveScopeId } from "../utils/scopeIdResolver";
 import { calculateEmission, fetchCalculationHistory } from "../api/emissionApi";
 import ResultCard from "../components/ResultCard";
 import { CalculateFlightDistance } from "../components/flightComp/FlightDistanceCalc";
-import ActivitySelector from "./ActivitySelector";
 
 export default function Calculator() {
   const navigate = useNavigate();
@@ -43,18 +42,35 @@ export default function Calculator() {
 
       const scope_id = resolveScopeId(mode, values);
       const res = await calculateEmission({
-        ...(mode === "flight" && {
-          origin: `${values.origin.name}, ${values.origin.city}`,
-          destination: `${values.destination.name}, ${values.destination.city}`,
-        }),
-        scope_id,
-        distance,
-        trip_type: values.trip_type,
-        ...(mode === "flight" && { passengers: Number(values.passengers) }),
-        calculator_type: "DEFRA",
-        leg_type: "single_leg",
         user_id: "USER_001",
+        leg_type: "single_step",
+        travel_steps: [
+          {
+            step_id: 1,
+            calculator_type: "DEFRA",
+            scope_id,
+            activity: mode,
+            attributes: {
+              distance: distance,
+              distance_unit: values.distance_unit,
+              trip_type: values.trip_type,
+
+              cabin_class: values.cabin_class,
+              size: values.size,
+              fuel_type: values.fuel_type,
+              segment: values.segment,
+              type: values.type,
+
+              ...(mode === "flight" && {
+                origin: `${values.origin.name}, ${values.origin.city}`,
+                destination: `${values.destination.name}, ${values.destination.city}`,
+                passengers: Number(values.passengers),
+              }),
+            },
+          },
+        ],
       });
+
       setResult(res.data.response);
     } finally {
       setLoading(false);
@@ -153,7 +169,6 @@ export default function Calculator() {
           </div>
         </div>
       </div>
-      <ActivitySelector />
     </>
   );
 }

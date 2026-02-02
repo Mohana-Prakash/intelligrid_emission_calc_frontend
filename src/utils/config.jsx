@@ -310,14 +310,14 @@ export function resolveFlightScopeId({
 }) {
   const isUK = FLIGHT_RULES.ukCheck(
     origin_detail.country,
-    destination_detail.country
+    destination_detail.country,
   );
 
   const distance_km = CalculateFlightDistance(
     origin_detail.lat,
     origin_detail.lon,
     destination_detail.lat,
-    destination_detail.lon
+    destination_detail.lon,
   );
 
   // console.log(

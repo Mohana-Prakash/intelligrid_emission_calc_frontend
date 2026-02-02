@@ -15,7 +15,7 @@ export const ACTIVITY_TEMPLATES = {
     distance: null,
     distance_unit: "",
     fuel_type: "",
-    car_size: "",
+    size: "",
     trip_type: "",
   },
 
@@ -34,7 +34,7 @@ export const ACTIVITY_TEMPLATES = {
     destination: "",
     distance: null,
     distance_unit: "",
-    bike_size: "",
+    size: "",
     trip_type: "",
   },
 
@@ -43,7 +43,7 @@ export const ACTIVITY_TEMPLATES = {
     destination: "",
     distance: null,
     distance_unit: "",
-    taxi_type: "",
+    type: "",
     trip_type: "",
   },
 };
