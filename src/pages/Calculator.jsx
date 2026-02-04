@@ -90,7 +90,7 @@ export default function Calculator() {
           Carbon Footprint Measurement Tool
         </h1>
 
-        <div>
+        {/* <div>
           <button
             onClick={() => navigate("/audit")}
             className="px-4 py-2 bg-gray-900 text-white rounded-lg text-sm hover:bg-gray-700 transition"
@@ -103,7 +103,7 @@ export default function Calculator() {
           >
             Activity
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Main Layout */}
