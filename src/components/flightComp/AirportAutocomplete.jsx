@@ -22,7 +22,7 @@ export default function AirportAutocomplete({
           (a.iata?.toLowerCase() || "").includes(q) ||
           (a.name?.toLowerCase() || "").includes(q) ||
           (a.city?.toLowerCase() || "").includes(q) ||
-          (a.country?.toLowerCase() || "").includes(q)
+          (a.country?.toLowerCase() || "").includes(q),
       )
       .slice(0, 8);
   }, [debouncedQuery]);
