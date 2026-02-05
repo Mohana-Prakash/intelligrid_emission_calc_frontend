@@ -1,6 +1,10 @@
 import { useState } from "react";
 import DynamicInputs from "../components/DynamicInputs";
-import { CALCULATOR_SCHEMA } from "../utils/config";
+import {
+  CALCULATOR_SCHEMA,
+  DEFRA_TRANSPORTS,
+  CLIMATIQ_TRANSPORTS,
+} from "../utils/config";
 import { resolveScopeId } from "../utils/scopeIdResolver";
 import { calculateEmission } from "../api/emissionApi";
 import ResultCard from "../components/ResultCard";
@@ -15,23 +19,21 @@ const EMPTY_LEG = {
 
 const CALCULATOR_TYPES = ["DEFRA", "AI", "CLIMATIQ"];
 
-const TRANSPORT_MODES = [
-  { id: "flight", label: "Flight" },
-  { id: "car_by_size", label: "Car (by size)" },
-  { id: "car_by_market_segment", label: "Car (by market segment)" },
-  { id: "motorbike", label: "Motorbike" },
-  { id: "taxi", label: "Taxi" },
-];
-
 export default function Calculator() {
   const navigate = useNavigate();
   const [legs, setLegs] = useState([EMPTY_LEG]);
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [transportMode, setTransportMode] = useState(DEFRA_TRANSPORTS);
 
   /* ---------- helpers ---------- */
 
   const updateLeg = (index, patch) => {
+    setTransportMode(
+      patch.calculator_type === "DEFRA"
+        ? DEFRA_TRANSPORTS
+        : CLIMATIQ_TRANSPORTS,
+    );
     const copy = [...legs];
     copy[index] = { ...copy[index], ...patch };
     setLegs(copy);
@@ -80,8 +82,8 @@ export default function Calculator() {
           segment: values.segment,
           type: values.type,
           ...(mode === "flight" && {
-            origin: `${values.origin?.name}, ${values.origin?.city}`,
-            destination: `${values.destination?.name}, ${values.destination?.city}`,
+            origin: `${values.origin?.iata}, ${values.origin?.name}, ${values.origin?.city}`,
+            destination: `${values.destination?.iata}, ${values.destination?.name}, ${values.destination?.city}`,
             passengers: Number(values.passengers),
           }),
         },
@@ -208,7 +210,7 @@ export default function Calculator() {
                     }
                     className="w-full border rounded-lg px-3 py-2 text-sm"
                   >
-                    {TRANSPORT_MODES.map((m) => (
+                    {transportMode.map((m) => (
                       <option key={m.id} value={m.id}>
                         {m.label}
                       </option>

@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { CalculateFlightDistance } from "../components/flightComp/FlightDistanceCalc";
 
-export const TRANSPORTS = [
+export const DEFRA_TRANSPORTS = [
   { id: "flight", label: "Flight", icon: Plane },
   { id: "car_by_size", label: "Car (by size)", icon: Car },
   { id: "car_by_market_segment", label: "Car (by market segment)", icon: Car },
@@ -18,6 +18,12 @@ export const TRANSPORTS = [
   // { id: "bus", label: "Bus", icon: Bus },
   // { id: "rail", label: "Rail", icon: TrainFront },
   // { id: "ferry", label: "Ferry", icon: Ship },
+];
+
+export const CLIMATIQ_TRANSPORTS = [
+  { id: "flight", label: "Flight", icon: Plane },
+  { id: "car_by_size", label: "Car (by size)", icon: Car },
+  { id: "rail", label: "Rail", icon: TrainFront },
 ];
 
 export const CALCULATOR_SCHEMA = {
@@ -59,7 +65,7 @@ export const CALCULATOR_SCHEMA = {
       },
       {
         label: "Premium Economy",
-        key: "premiumEconomy",
+        key: "premium_economy",
       },
       {
         label: "First Class",
@@ -129,11 +135,11 @@ export const CALCULATOR_SCHEMA = {
       },
       {
         label: "Plug-in Hybrid Electric Vechicle (PHEV)",
-        key: "plug_in_hybrid",
+        key: "plugin_hybrid",
       },
       {
         label: "Battery Electric Vechicle (BEV)",
-        key: "battery_electric",
+        key: "battery",
       },
     ],
     tripTypes: ["one_way", "round_trip"],
@@ -207,11 +213,11 @@ export const CALCULATOR_SCHEMA = {
       },
       {
         label: "Plug-in Hybrid Electric Vechicle (PHEV)",
-        key: "plug_in_hybrid",
+        key: "plugin_hybrid",
       },
       {
         label: "Battery Electric Vechicle (BEV)",
-        key: "battery_electric",
+        key: "battery",
       },
     ],
     tripTypes: ["one_way", "round_trip"],
@@ -298,8 +304,8 @@ export const FLIGHT_RULES = {
 
   cabinClasses: {
     short_haul: ["average", "economy", "business"],
-    long_haul: ["average", "economy", "premiumEconomy", "business", "first"],
-    non_uk: ["average", "economy", "premiumEconomy", "business", "first"],
+    long_haul: ["average", "economy", "premium_economy", "business", "first"],
+    non_uk: ["average", "economy", "premium_economy", "business", "first"],
   },
 };
 

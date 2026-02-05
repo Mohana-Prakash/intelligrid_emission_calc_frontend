@@ -7,7 +7,7 @@ import {
   deleteEmissionFactor,
   addEmissionFactors,
 } from "../api/emissionApi";
-import { TRANSPORTS } from "../utils/config";
+import { DEFRA_TRANSPORTS } from "../utils/config";
 import EditEmissionModal from "../components/EditEmissionModal";
 import AddEmissionModal from "../components/AddEmissionModal";
 
@@ -84,7 +84,7 @@ export default function Audit() {
           onChange={(e) => setActivity(e.target.value)}
           className="border p-2 rounded-lg text-sm"
         >
-          {TRANSPORTS.map((a) => (
+          {DEFRA_TRANSPORTS.map((a) => (
             <option key={a.id} value={a.id}>
               {a.label}
             </option>

@@ -1,9 +1,9 @@
-import { TRANSPORTS } from "../utils/config";
+import { DEFRA_TRANSPORTS } from "../utils/config";
 
 export default function TransportSelector({ selected, onSelect }) {
   return (
     <div className="">
-      {TRANSPORTS.map(({ id, label, icon: Icon }) => (
+      {DEFRA_TRANSPORTS.map(({ id, label, icon: Icon }) => (
         <button
           key={id}
           onClick={() => onSelect(id)}
