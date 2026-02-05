@@ -15,8 +15,8 @@ export const DEFRA_TRANSPORTS = [
   { id: "car_by_market_segment", label: "Car (by market segment)", icon: Car },
   { id: "motorbike", label: "Motorbike", icon: Bike },
   { id: "taxi", label: "Taxi", icon: CarTaxiFront },
-  // { id: "bus", label: "Bus", icon: Bus },
-  // { id: "rail", label: "Rail", icon: TrainFront },
+  { id: "bus", label: "Bus", icon: Bus },
+  { id: "rail", label: "Rail", icon: TrainFront },
   // { id: "ferry", label: "Ferry", icon: Ship },
 ];
 
@@ -325,14 +325,6 @@ export function resolveFlightScopeId({
     destination_detail.lat,
     destination_detail.lon,
   );
-
-  // console.log(
-  //   origin_detail,
-  //   destination_detail,
-  //   cabin_class,
-  //   distance_km,
-  //   isUK
-  // );
   // NON-UK flights
   if (!isUK) {
     if (!FLIGHT_RULES.cabinClasses.non_uk.includes(cabin_class)) {

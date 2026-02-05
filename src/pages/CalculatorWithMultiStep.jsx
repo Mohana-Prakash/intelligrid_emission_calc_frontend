@@ -29,11 +29,13 @@ export default function Calculator() {
   /* ---------- helpers ---------- */
 
   const updateLeg = (index, patch) => {
-    setTransportMode(
-      patch.calculator_type === "DEFRA"
-        ? DEFRA_TRANSPORTS
-        : CLIMATIQ_TRANSPORTS,
-    );
+    if (patch.calculator_type) {
+      setTransportMode(
+        patch.calculator_type === "DEFRA" || patch.calculator_type === "AI"
+          ? DEFRA_TRANSPORTS
+          : CLIMATIQ_TRANSPORTS,
+      );
+    }
     const copy = [...legs];
     copy[index] = { ...copy[index], ...patch };
     setLegs(copy);
@@ -94,6 +96,7 @@ export default function Calculator() {
 
   const handleCalculate = async () => {
     setLoading(true);
+
     try {
       const res = await calculateEmission({
         user_id: "USER_001",
