@@ -104,6 +104,8 @@ export default function Calculator() {
         travel_steps: buildTravelSteps(),
       });
       setResult(res.data.response);
+    } catch (err) {
+      console.log(err);
     } finally {
       setLoading(false);
     }
