@@ -21,6 +21,7 @@ const SelectInput = ({ label, value, options, onChange }) => {
 
 export default function DynamicInputs({ schema, values, onChange }) {
   if (!schema) return null;
+  console.log(schema);
 
   const hasInput = (key) => schema.inputs.some((i) => i.key === key);
 
@@ -152,7 +153,7 @@ export default function DynamicInputs({ schema, values, onChange }) {
       {/* TYPE */}
       {schema.types && hasInput("type") && (
         <SelectInput
-          label="Taxi type"
+          label="Type"
           value={values.type}
           onChange={(v) => onChange("type", v)}
           options={schema.types.map((t) => ({

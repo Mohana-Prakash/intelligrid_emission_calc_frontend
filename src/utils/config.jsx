@@ -272,7 +272,7 @@ export const CALCULATOR_SCHEMA = {
     ],
     types: [
       {
-        label: "Regular Taxi",
+        label: "Regular",
         key: "regular",
       },
       {
@@ -282,15 +282,77 @@ export const CALCULATOR_SCHEMA = {
     ],
   },
 
-  // bus: {
-  //   inputs: ["distance", "type"],
-  //   types: ["local", "coach"],
-  // },
+  bus: {
+    inputs: [
+      {
+        label: "Distance",
+        key: "distance",
+      },
+      {
+        label: "Bus Type",
+        key: "type",
+      },
+      {
+        label: "Trip Type",
+        key: "trip_type",
+      },
+    ],
+    types: [
+      {
+        label: "Local bus (not London)",
+        key: "local",
+      },
+      {
+        label: "Local London",
+        key: "local_london",
+      },
+      {
+        label: "Average local",
+        key: "average_local",
+      },
+      {
+        label: "Coach",
+        key: "coach",
+      },
+    ],
+    tripTypes: ["one_way", "round_trip"],
+  },
 
-  // rail: {
-  //   inputs: ["distance", "type"],
-  //   types: ["national", "metro"],
-  // },
+  rail: {
+    inputs: [
+      {
+        label: "Distance",
+        key: "distance",
+      },
+      {
+        label: "Rail Type",
+        key: "type",
+      },
+      {
+        label: "Trip Type",
+        key: "trip_type",
+      },
+    ],
+    types: [
+      {
+        label: "National",
+        key: "national",
+      },
+      {
+        label: "International",
+        key: "international",
+      },
+      {
+        label: "Light rail and tram",
+        key: "tram",
+      },
+      {
+        label: "London Underground",
+        key: "london_underground",
+      },
+    ],
+    tripTypes: ["one_way", "round_trip"],
+  },
 };
 
 export const FLIGHT_RULES = {
