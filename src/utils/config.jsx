@@ -17,7 +17,7 @@ export const DEFRA_TRANSPORTS = [
   { id: "taxi", label: "Taxi", icon: CarTaxiFront },
   { id: "bus", label: "Bus", icon: Bus },
   { id: "rail", label: "Rail", icon: TrainFront },
-  // { id: "ferry", label: "Ferry", icon: Ship },
+  { id: "sea", label: "Sea (Ferry)", icon: Ship },
 ];
 
 export const CLIMATIQ_TRANSPORTS = [
@@ -278,6 +278,33 @@ export const CALCULATOR_SCHEMA = {
       {
         label: "Black Cab",
         key: "black_cab",
+      },
+    ],
+  },
+
+  sea: {
+    inputs: [
+      {
+        label: "Distance",
+        key: "distance",
+      },
+      {
+        label: "Sea Ferry Type",
+        key: "type",
+      },
+    ],
+    types: [
+      {
+        label: "Foot",
+        key: "foot",
+      },
+      {
+        label: "Car",
+        key: "car",
+      },
+      {
+        label: "average",
+        key: "average",
       },
     ],
   },
