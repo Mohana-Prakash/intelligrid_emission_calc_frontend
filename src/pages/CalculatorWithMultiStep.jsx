@@ -80,7 +80,7 @@ export default function Calculator() {
       return {
         // step_id: idx + 1,
         calculator_type,
-        scope_id: resolveScopeId(mode, values),
+        // scope_id: resolveScopeId(mode, values),
         activity: mode,
         attributes: {
           distance,

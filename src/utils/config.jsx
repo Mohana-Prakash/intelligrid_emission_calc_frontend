@@ -282,6 +282,33 @@ export const CALCULATOR_SCHEMA = {
     ],
   },
 
+  sea: {
+    inputs: [
+      {
+        label: "Distance",
+        key: "distance",
+      },
+      {
+        label: "Sea Ferry Type",
+        key: "type",
+      },
+    ],
+    types: [
+      {
+        label: "Foot",
+        key: "foot",
+      },
+      {
+        label: "Car",
+        key: "car",
+      },
+      {
+        label: "average",
+        key: "average",
+      },
+    ],
+  },
+
   bus: {
     inputs: [
       {
