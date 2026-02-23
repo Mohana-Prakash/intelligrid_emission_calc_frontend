@@ -10,7 +10,6 @@ import { calculateEmission } from "../api/emissionApi";
 import ResultCard from "../components/ResultCard";
 import { CalculateFlightDistance } from "../components/flightComp/FlightDistanceCalc";
 import { useNavigate } from "react-router-dom";
-import PortAutocomplete from "../components/seaComp/seaInput";
 
 const EMPTY_LEG = {
   mode: "flight",
@@ -157,7 +156,6 @@ export default function Calculator() {
           </button> */}
         </div>
       </div>
-      <PortAutocomplete />
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         <div className="lg:col-span-3 space-y-6">
           {legs.map((leg, index) => {
