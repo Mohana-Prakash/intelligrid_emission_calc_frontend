@@ -17,7 +17,7 @@ export const DEFRA_TRANSPORTS = [
   { id: "taxi", label: "Taxi", icon: CarTaxiFront },
   { id: "bus", label: "Bus", icon: Bus },
   { id: "rail", label: "Rail", icon: TrainFront },
-  // { id: "ferry", label: "Ferry", icon: Ship },
+  { id: "sea", label: "Sea (Ferry)", icon: Ship },
 ];
 
 export const CLIMATIQ_TRANSPORTS = [
@@ -31,11 +31,11 @@ export const CALCULATOR_SCHEMA = {
     inputs: [
       {
         label: "Origin",
-        key: "origin",
+        key: "airportOrigin",
       },
       {
         label: "Destination",
-        key: "destination",
+        key: "airportDestination",
       },
       {
         label: "Cabin Class",
@@ -349,6 +349,42 @@ export const CALCULATOR_SCHEMA = {
       {
         label: "London Underground",
         key: "london_underground",
+      },
+    ],
+    tripTypes: ["one_way", "round_trip"],
+  },
+
+  sea: {
+    inputs: [
+      {
+        label: "Origin",
+        key: "portOrigin",
+      },
+      {
+        label: "seaPortDestination",
+        key: "portDestination",
+      },
+      {
+        label: "Sea Type",
+        key: "type",
+      },
+      {
+        label: "Trip Type",
+        key: "trip_type",
+      },
+    ],
+    types: [
+      {
+        label: "Foot passenger",
+        key: "foot",
+      },
+      {
+        label: "Car Passenger",
+        key: "car",
+      },
+      {
+        label: "Average",
+        key: "average",
       },
     ],
     tripTypes: ["one_way", "round_trip"],

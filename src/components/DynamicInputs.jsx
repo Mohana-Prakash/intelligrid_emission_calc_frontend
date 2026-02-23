@@ -1,4 +1,5 @@
 import AirportAutocomplete from "./flightComp/AirportAutocomplete";
+import PortAutocomplete from "./seaComp/seaInput";
 
 const SelectInput = ({ label, value, options, onChange }) => {
   return (
@@ -21,14 +22,13 @@ const SelectInput = ({ label, value, options, onChange }) => {
 
 export default function DynamicInputs({ schema, values, onChange }) {
   if (!schema) return null;
-  console.log(schema);
 
   const hasInput = (key) => schema.inputs.some((i) => i.key === key);
 
   return (
     <div className="space-y-3 mt-4">
       {/* ORIGIN */}
-      {hasInput("origin") && (
+      {hasInput("airportOrigin") && (
         <AirportAutocomplete
           placeholder="Origin (City / Airport / IATA)"
           value={values.origin || ""}
@@ -38,11 +38,30 @@ export default function DynamicInputs({ schema, values, onChange }) {
       )}
 
       {/* DESTINATION */}
-      {hasInput("destination") && (
+      {hasInput("airportDestination") && (
         <AirportAutocomplete
           placeholder="Destination (City / Airport / IATA)"
           value={values.destination || ""}
           onSelect={(airport) => onChange("destination", airport)}
+          label="Destination"
+        />
+      )}
+
+      {hasInput("portOrigin") && (
+        <PortAutocomplete
+          placeholder="Origin (City / Port)"
+          value={values.origin || ""}
+          onSelect={(port) => onChange("origin", port)}
+          label="Origin"
+        />
+      )}
+
+      {/* DESTINATION */}
+      {hasInput("portDestination") && (
+        <PortAutocomplete
+          placeholder="Destination (City / Port)"
+          value={values.destination || ""}
+          onSelect={(port) => onChange("destination", port)}
           label="Destination"
         />
       )}

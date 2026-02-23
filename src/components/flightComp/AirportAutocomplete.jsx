@@ -1,13 +1,8 @@
 import { useState, useMemo } from "react";
 import airports from "./airports.json";
-import { useDebounce } from "./useDebounce";
+import { useDebounce } from "../useDebounce";
 
-export default function AirportAutocomplete({
-  value,
-  onSelect,
-  placeholder,
-  label,
-}) {
+export default function AirportAutocomplete({ value, onSelect, placeholder }) {
   const [query, setQuery] = useState(value || "");
   const debouncedQuery = useDebounce(query, 300);
 
